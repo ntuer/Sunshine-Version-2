@@ -8,14 +8,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
@@ -50,6 +57,7 @@ public class MainActivity extends ActionBarActivity {
      */
     public static class PlaceholderFragment extends Fragment {
 
+
         public PlaceholderFragment() {
         }
 
@@ -57,6 +65,19 @@ public class MainActivity extends ActionBarActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            ArrayList<String> forecastStrings = new ArrayList<String>();
+            forecastStrings.add("Today--Cloudy--22/32");
+            forecastStrings.add("Thursday--Sunny--21/34");
+            forecastStrings.add("Friday--Rainy--19/30");
+            forecastStrings.add("Saturday--Cloudy--22/32");
+            forecastStrings.add("Sunday--Cloudy--22/32");
+            forecastStrings.add("Moday--Cloudy--21/30");
+            forecastStrings.add("Tuesday--Sunny--20/34");
+
+            ArrayAdapter<String> forecastArrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_forecast_item, R.id.textView, forecastStrings);
+
+            ListView forecastListView = (ListView)rootView.findViewById(R.id.list_forecast_item_listview);
+            forecastListView.setAdapter(forecastArrayAdapter);
             return rootView;
         }
     }
